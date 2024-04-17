@@ -1,8 +1,12 @@
-#include "Deck.h"
+#include<iostream>
+#include "Board.h"
 
-namespace bridge {
-	int main() {
-		//Deck deck();
-		return 0;
-	}
+
+using namespace std;
+using namespace bridge;
+
+int main(){
+	Board d;
+	cout<< (d.generate());
+	return 0;
 }

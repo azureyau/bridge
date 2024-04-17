@@ -2,7 +2,7 @@
 #include "Cards.h"
 
 namespace bridge {
-	Card::Card(int index, bool played):m_suit{ suits[index/13]}, m_value{index%13}, m_index{index}, m_played(played) {}
+	Card::Card(int index, bool played):m_suit{ suits[int(index/13)]}, m_value{index%13}, m_index{index}, m_played(played) {}
 
 	Card& Card::operator=(const Card& rhs){
 		if (this != &rhs) {
@@ -28,6 +28,10 @@ namespace bridge {
 
 	Card::operator bool(){
 		return m_played;
+	}
+
+	bool Card::operator>(Card& rhs){
+		return m_value>rhs.m_value;
 	}
 
 	Card& Card::play(){

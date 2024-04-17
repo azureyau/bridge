@@ -6,13 +6,16 @@
 
 namespace bridge {
 	class Deck {
+
+	protected:
 		Card m_cards[52];
-		int m_numCard{ 52 };
-	public:
 		Deck();
 		Deck(const Deck& rhs);
+	public:
+		Deck& operator=(const Deck& rhs);
 		virtual ~Deck() = default;
+		virtual std::ostream& display(std::ostream& os = std::cout)const;
 	};
+	std::ostream& operator<<(std::ostream& os, const Deck& deck);
 }
-
 #endif
