@@ -12,16 +12,17 @@ namespace bridge {
 		Card() = default; 
 		Card(int index, bool played = false);
 		friend class Deck;
-		Card& operator=(const Card& rhs);
 	public:
 		char suit() const;
+		int suitInt() const;
 		char value() const;
 		operator int() const;
 		operator bool();
 		bool operator>(Card& rhs);
 		Card& play();
+		Card& operator=(const Card& rhs);
 		std::ostream& display(std::ostream& os = std::cout) const;
 	};
-	std::ostream& operator>>(std::ostream& os, const Card& card);
+	std::ostream& operator<<(std::ostream& os, const Card& card);
 }
 #endif //!BRIDGE_CARD_H

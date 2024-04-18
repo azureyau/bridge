@@ -18,6 +18,10 @@ namespace bridge {
 		return m_suit;
 	}
 
+	int Card::suitInt() const{
+		return static_cast<int>(m_index/4);
+	}
+
 	char Card::value() const{
 		return m_value;
 	}
@@ -40,10 +44,10 @@ namespace bridge {
 	}
 
 	std::ostream& Card::display(std::ostream& os) const{
-		return os << m_suit << rank[m_value];
+		return os << m_suit << rank[m_value]<<' ';
 	}
 
-	std::ostream& operator>>(std::ostream& os, const Card& card){
+	std::ostream& operator<<(std::ostream& os, const Card& card){
 		return card.display(os);
 	}
 

@@ -1,12 +1,14 @@
 #include<iostream>
-#include "Board.h"
-
+#include "Play.h"
 
 using namespace std;
 using namespace bridge;
 
 int main(){
-	Board d;
-	cout<< (d.generate());
+	int result;
+	Play d;
+	cout << d;
+	result= d.analyse();
+	cout << result;
 	return 0;
 }

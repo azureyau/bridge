@@ -15,6 +15,13 @@ namespace bridge {
 		}
 
 	}
+	Deck& Deck::operator=(const Deck& rhs)
+	{
+		for (int i = 0; i < 52; i++) {
+			m_cards[i] = rhs.m_cards[i];
+		}
+		return *this;
+	}
 	std::ostream& Deck::display(std::ostream& os)const {
 		for (int i = 0; i < 52; i++) {
 			m_cards[i].display();
