@@ -5,10 +5,15 @@ using namespace std;
 using namespace bridge;
 
 int main(){
-	int result;
-	Play d;
-	cout << d;
-	result= d.analyse();
-	cout << result;
+	//int result;
+	/*Board d;
+	cout << d.generate();*/
+	//result= d.analyse();
+	//cout << result;
+
+	Play p;
+	Board* b= &p;
+	cout << *b;
+	cout << p.analyse();
 	return 0;
 }

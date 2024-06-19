@@ -5,8 +5,6 @@ namespace bridge {
 	const char suits[4]{ 'S','H','D','C' };
 	const char rank[13]{ '2','3','4','5','6','7','8','9','T','J','Q','K','A'};
 	class Card {
-		char m_suit{};
-		int m_value{};
 		int m_index{};
 		bool m_played{ false };
 		Card() = default; 
@@ -17,7 +15,7 @@ namespace bridge {
 		int suitInt() const;
 		char value() const;
 		operator int() const;
-		operator bool();
+		operator bool() const;
 		bool operator>(Card& rhs);
 		Card& play();
 		Card& operator=(const Card& rhs);

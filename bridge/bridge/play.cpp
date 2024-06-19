@@ -7,9 +7,8 @@ namespace bridge {
 
 	Play::Play(const Play& rhs) : Board(rhs),
 		m_leadPo(rhs.m_leadPo), m_playPo(rhs.m_playPo), m_numCardPlayed(rhs.m_numCardPlayed), m_trickNS(rhs.m_trickNS) {
-		for (int i = 0; i < m_numCardPlayed; i++) {
-			m_playSeq[i] = rhs.m_playSeq[i];
-		}
+		m_playSeq = rhs.m_playSeq;
+
 	}
 
 	Play& Play::playCard(int index) {
@@ -37,11 +36,13 @@ namespace bridge {
 		for (int i = 0; i < 13; i++) {
 			if (!m_cards[m_hands[m_playPo][i]] &&
 				cardLegal(m_cards[m_hands[m_playPo][i]])
-				&& !eqCard(m_playPo, m_hands[m_playPo][i])) {
+				&& !eqCard(m_playPo, m_hands[m_playPo],i)) 
+			{
 				Play temp = *this;
 				tempresult = temp.playCard(m_hands[m_playPo][i]).analyse();
 				if (result == -1 || (tempresult > result && m_playPo % 2 == 0) || (tempresult < result && m_playPo % 2 == 1)) {
 					result = tempresult;
+					std::cout << result;////debug output
 				}
 			}
 		}
@@ -49,11 +50,34 @@ namespace bridge {
 		return result;
 	}
 
-	bool Play::eqCard(int position, int index) {
-		return false;//////////TBD
+	bool Play::eqCard(int position, int handArr[],int index) const {///////////////////////////TBD
+		//find the index of the one upper unplayed card of the same player
+		int unplayedIndex{-1};
+		std::cout << "in eqCard";
+		for (int i = index; i >= 0 && unplayedIndex==-1; i--) {
+			if (!m_cards[handArr[i]]) {
+				std::cout << "unplayedIndex= " << handArr[i]<<std::endl;//////////debug output
+				unplayedIndex = handArr[i];
+			}
+		}
+		if (unplayedIndex == -1) { 
+			return false; 
+		}
+		//check if any card is unplayed between the current card and upper card
+		if (m_cards[unplayedIndex].suit() == m_cards[handArr[index]].suit()) {
+			for (int i = unplayedIndex + 1; i < handArr[index]; i++) {
+				std::cout << i<<' ';
+				if (!m_cards[i]) {
+					return false;
+				}
+			}
+		}
+		std::cout << m_cards[handArr[index]] << "is eq card";
+		return true;
+		
 	}
 
-	bool Play::card1win(const Card& card1, const Card& card2, char currentSuit) {
+	bool Play::card1win(const Card& card1, const Card& card2, char currentSuit) const {
 		int left{}, right{};
 		left += (card1.suitInt() == m_trump ? 100 : 0);
 		right += (card2.suitInt() == m_trump ? 100 : 0);
@@ -90,9 +114,9 @@ namespace bridge {
 	}
 
 	bool Play::cardLegal(Card& card) {
-		bool playingNT = (m_trump == -1);
+
 		bool onLead = (m_numCardPlayed % 4 == 0);
-		if (playingNT || onLead)
+		if (onLead)
 			return true;
 		int leadedSuit = m_cards[m_playSeq[m_numCardPlayed-(m_numCardPlayed%4)]].suitInt();
 		return (leadedSuit == card.suitInt() || suitCount(m_playPo, leadedSuit));
@@ -110,6 +134,10 @@ namespace bridge {
 		}
 		os << std:: endl << "NS took trick:" << m_trickNS;
 		return os;
+	}
+
+	int Play::trickNo() const{
+		return m_numCardPlayed/4;
 	}
 
 }

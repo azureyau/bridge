@@ -1,6 +1,7 @@
 #ifndef BRIDGE_BOARD_H
 #define BRIDGE_BOARD_H
 
+#include <array>
 #include"Deck.h"
 
 namespace bridge {
@@ -11,7 +12,7 @@ namespace bridge {
 		int m_hands[4][13];
 	private:
 		int m_suitCount[4][4];
-		int m_hcp[4];
+		std::array<int, 4> m_hcp{};
 	public:
 		Board();
 		virtual ~Board() = default;

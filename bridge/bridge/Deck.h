@@ -11,6 +11,7 @@ namespace bridge {
 		Card m_cards[52];
 		Deck();
 		Deck(const Deck& rhs);
+
 	public:
 		Deck& operator=(const Deck& rhs);
 		virtual ~Deck() = default;

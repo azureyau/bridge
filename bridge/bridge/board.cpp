@@ -1,11 +1,13 @@
 
 #include "board.h"
 #include "Utils.h"
+#define DISPLAYWIDTH 20
 using namespace std;
+
+
 namespace bridge{
 	const char seats[4] = { 'N','E','S','W' };
 	bool showCount = true;
-	const int DISPLAYWIDTH = 20;
 	Board::Board():Deck(){	
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 13; j++) {
